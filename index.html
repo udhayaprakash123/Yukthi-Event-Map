@@ -38,7 +38,31 @@
 <body>
   <!-- Events list -->
   <div>
-    <h2>Events</h2>
+    <h2>Management and Cultural Events</h2>
+    <!--ul id="events-list">
+      <li><a href="#" onclick="showVenue('Fintorum')">Fintorum [Finance Event]</a></li>
+      <li><a href="#" onclick="showVenue('Pinnacle')">Pinnacle [HR Event]</a></li>
+      <li><a href="#" onclick="showVenue('Lets_BID')">Let’s BID [IPL auction]</a></li>
+      <li><a href="#" onclick="showVenue('Biz_Thrive')">Biz-Thrive [Business Plan]</a></li>
+      <li><a href="#" onclick="showVenue('Quorum_Quest')">Quorum Quest [Business Quiz]</a></li>
+      <li><a href="#" onclick="showVenue('Emporia')">Emporia [Marketing Event]</a></li>
+      <li><a href="#" onclick="showVenue('Last_Knight')">Last Knight [Best Manger]</a></li>
+      <li><a href="#" onclick="showVenue('Optimize')">Sizzle & Optimize [Operations Event]</a></li>
+      <li><a href="#" onclick="showVenue('Datavista')">Datavista [Analytics Event]</a></li>
+      <li><a href="#" onclick="showVenue('Euphoria')">Euphoria [Group Dance]</a></li>
+      <li><a href="#" onclick="showVenue('Generation_Vogue')">Generation Vogue [Ramp Walk]</a></li>
+      <li><a href="#" onclick="showVenue('Cine_Scope')">Cine Scope [Cine Quiz]</a></li>
+      <li><a href="#" onclick="showVenue('Retronome')">Retronome [Solo Singing]</a></li>
+      <li><a href="#" onclick="showVenue('Fusion_Fest')">Fusion Fest [Battle of Bands</a></li>
+      <li><a href="#" onclick="showVenue('Reel_E_Tour')">Reel E Tour [Reels Contest]</a></li>
+      <li><a href="#" onclick="showVenue('Cinezer')">Cinezer [Short Film]</a></li>
+      <li><a href="#" onclick="showVenue('Mozhi')">Mozhi [Mime]</a></li>
+      <li><a href="#" onclick="showVenue('Rolling_Shutter')">Rolling Shutter'24 [Photography]</a></li>
+      <li><a href="#" onclick="showVenue('Sizzle_Shake')">Sizzle & Shake [Solo Dance]</a></li>
+      
+      
+      
+    </ul> -->
     <ul id="events-list" style="list-style-type: none; padding-left: 0;align-self: center; display: list-item; text-align: center;"></ul>
     <head>
         <style>
@@ -81,15 +105,30 @@
 
     var venues = {
       ground_floor: {
-        EVENT_X: [9.877597, 78.083138], // Coordinates for EVENT_X on the ground floor
-        EVENT_Y: [9.877597, 78.083138],   // Coordinates for EVENT_Y on the ground floor
-        EVENT_Z: [9.877384, 78.083376] // Coordinates for EVENT_Z on the ground floor
+        Fintorum: [9.877597, 78.083138], // Coordinates for EVENT_X on the ground floor
+        Pinnacle: [9.877597, 78.083138],   // Coordinates for EVENT_Y on the ground floor
+        Lets_BID: [9.877384, 78.083376], // Coordinates for EVENT_Z on the ground floor
+        Last_Knight: [9.877384, 78.083376],
+        Datavista: [9.877384, 78.083376],
+        Generation_Vogue: [9.877384, 78.083376],
+        Reel_E_Tour: [9.877384, 78.083376],
+        Mozhi: [9.877384, 78.083376],
+        Sizzle_Shake: [9.877384, 78.083376],
+        Cine_Scope: [9.877384, 78.083376],
+        
         // Add more events for the ground floor as needed
       },
       first_floor: {
-        RETRONOME: [9.877597, 78.083138], // Coordinates for RETRONOME on the first floor
-        BIOSCOPE: [9.877597, 78.083138],   // Coordinates for BIOSCOPE on the first floor
-        ROLLING_SHUTTER: [9.877384, 78.083376] // Coordinates for ROLLING SHUTTER on the first floor
+        Biz_Thrive: [9.877597, 78.083138], // Coordinates for RETRONOME on the first floor
+        Quorum_Quest: [9.877597, 78.083138],   // Coordinates for BIOSCOPE on the first floor
+        Emporia: [9.877384, 78.083376], // Coordinates for ROLLING SHUTTER on the first floor
+        Optimize: [9.877384, 78.083376],
+        Cine_Scope: [9.877384, 78.083376],
+        Retronome: [9.877384, 78.083376],
+        Fusion_Fest: [9.877384, 78.083376],
+        Cinezer: [9.877384, 78.083376],
+        Rolling_Shutter: [9.877384, 78.083376],
+        
         // Add more events for the first floor as needed
       }
     };
@@ -109,7 +148,7 @@
     }
 
     // Create map
-    var map = L.map('map').setView([9.877596, 78.083417], 21);
+    var map = L.map('map').setView([9.877596, 78.083417], 20);
 
     // Function to show floor map
     function showFloorMap(floor) {
