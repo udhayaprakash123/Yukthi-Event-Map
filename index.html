@@ -15,22 +15,22 @@
       margin: 0;
     }
     .map-container {
-      height: 1000px;
+      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
     }
     .map {
-      width: 70%;
-      height: 100%;
+      width: 90%;
+      height: 70%;
     }
     .floor-name {
       background-color: rgba(255, 255, 255, 0.8);
       padding: 5px;
       border-radius: 5px;
-      justify-content: center;
-      align-items: center;
+      text-align: center; /* Center-align the text */
+      font-size: 20px; /* Increase font size */
     }
   </style>
 </head>
@@ -43,13 +43,9 @@
 
   <!-- Maps container -->
   <div class="map-container">
-    <!-- Ground floor map -->
-    <div id="ground-floor-map" class="map">
-      <div class="floor-name">Ground Floor</div>
-    </div>
-    <!-- First floor map -->
-    <div id="first-floor-map" class="map">
-      <div class="floor-name">First Floor</div>
+    <!-- Map -->
+    <div id="map" class="map">
+      <div class="floor-name" id="floor-name">Floor Map</div>
     </div>
   </div>
 
@@ -63,6 +59,11 @@
     var imageBounds = {
       ground_floor: [[9.877301, 78.083108], [9.877858, 78.083707]],
       first_floor: [[9.877301, 78.083108], [9.877858, 78.083707]]
+    };
+
+    var floorTitles = {
+      ground_floor: 'Ground Floor',
+      first_floor: 'First Floor'
     };
 
     var venues = {
@@ -88,50 +89,48 @@
         var link = document.createElement('a');
         link.href = '#';
         link.textContent = event + ' (' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')';
-        link.onclick = function(floor, event) { return function() { showVenue(floor, event); }; }(floor, event);
+        link.onclick = function(floor, event) { return function() { showFloorMap(floor); showVenue(floor, event); }; }(floor, event);
         listItem.appendChild(link);
         eventsList.appendChild(listItem);
       }
     }
 
-    // Create maps
-    var groundFloorMap = L.map('ground-floor-map').setView([9.877596, 78.083417], 20); // Adjusted zoom level
-    var firstFloorMap = L.map('first-floor-map').setView([9.877596, 78.083417], 20); // Adjusted zoom level
+    // Create map
+    var map = L.map('map').setView([9.877596, 78.083417], 20);
 
-    // Add image overlays to maps
-    L.imageOverlay(imageUrls.ground_floor, imageBounds.ground_floor).addTo(groundFloorMap);
-    L.imageOverlay(imageUrls.first_floor, imageBounds.first_floor).addTo(firstFloorMap);
+    // Function to show floor map
+    function showFloorMap(floor) {
+      var imageUrl = imageUrls[floor];
+      var imageBound = imageBounds[floor];
 
-    // Custom control to display the floor name
-    L.Control.FloorName = L.Control.extend({
-      onAdd: function(map) {
-        var div = L.DomUtil.create('div', 'floor-name');
-        div.textContent = map.options.floorName;
-        return div;
-      },
-      onRemove: function(map) {
-        // Nothing to do here
-      }
-    });
+      map.eachLayer(function (layer) {
+        if (layer instanceof L.ImageOverlay) {
+          map.removeLayer(layer);
+        }
+      });
 
-    // Function to show venue
-        // Function to show venue on map
-        function showVenue(floor, event) {
+      L.imageOverlay(imageUrl, imageBound).addTo(map);
+
+      // Update the floor name
+      document.getElementById('floor-name').textContent = floorTitles[floor];
+    }
+
+    // Function to show venue on map
+    function showVenue(floor, event) {
       var venueCoords = venues[floor][event];
       if (venueCoords) {
-        var map = floor === 'ground_floor' ? groundFloorMap : firstFloorMap;
-        // Remove the following line to prevent the map from zooming in
-        // map.setView(venueCoords, 22); 
-        L.marker(venueCoords).addTo(map).bindPopup('Event Venue: ' + event + ' (Floor ' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')').openPopup(); // Add a marker
+        // Remove any existing markers
+        map.eachLayer(function (layer) {
+          if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+          }
+        });
+        // Add marker for the selected event
+        L.marker(venueCoords).addTo(map).bindPopup('Event Venue: ' + event + ' (Floor ' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')').openPopup();
       } else {
         alert('Venue not found on the selected floor!');
       }
     }
-
-    // Add floor name to maps
-    groundFloorMap.addControl(new L.Control.FloorName({ position: 'topright', floorName: 'Ground Floor' }));
-    firstFloorMap.addControl(new L.Control.FloorName({ position: 'topright', floorName: 'First Floor' }));
   </script>
 </body>
 </html>
-
