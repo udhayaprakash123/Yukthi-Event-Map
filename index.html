@@ -10,18 +10,27 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <!-- Set map height -->
   <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
     .map-container {
+      height: 1000px;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
     .map {
-      height: 300px;
+      width: 70%;
+      height: 100%;
     }
     .floor-name {
-      margin: auto;
       background-color: rgba(255, 255, 255, 0.8);
       padding: 5px;
       border-radius: 5px;
+      justify-content: center;
+      align-items: center;
     }
   </style>
 </head>
@@ -86,8 +95,8 @@
     }
 
     // Create maps
-    var groundFloorMap = L.map('ground-floor-map').setView([9.877596, 78.083417], 20);
-    var firstFloorMap = L.map('first-floor-map').setView([9.877596, 78.083417], 20);
+    var groundFloorMap = L.map('ground-floor-map').setView([9.877596, 78.083417], 20); // Adjusted zoom level
+    var firstFloorMap = L.map('first-floor-map').setView([9.877596, 78.083417], 20); // Adjusted zoom level
 
     // Add image overlays to maps
     L.imageOverlay(imageUrls.ground_floor, imageBounds.ground_floor).addTo(groundFloorMap);
@@ -105,8 +114,9 @@
       }
     });
 
-    // Function to show venue on map
-    function showVenue(floor, event) {
+    // Function to show venue
+        // Function to show venue on map
+        function showVenue(floor, event) {
       var venueCoords = venues[floor][event];
       if (venueCoords) {
         var map = floor === 'ground_floor' ? groundFloorMap : firstFloorMap;
@@ -124,3 +134,4 @@
   </script>
 </body>
 </html>
+
