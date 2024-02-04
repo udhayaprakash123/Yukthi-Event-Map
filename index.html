@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Map with Events</title>
+  <!-- Include Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Include Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Set map height -->
+  <style>
+    .map-container {
+      display: flex;
+    }
+    .map {
+      flex: 1;
+      height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Events list -->
+  <div>
+    <h2>Events</h2>
+    <ul id="events-list"></ul>
+  </div>
+
+  <!-- Maps container -->
+  <div class="map-container">
+    <!-- Ground floor map -->
+    <div id="ground-floor-map" class="map">
+      <h3>Ground Floor Map</h3>
+    </div>
+    <!-- First floor map -->
+    <div id="first-floor-map" class="map">
+      <h3>First Floor Map</h3>
+    </div>
+  </div>
+
+  <script>
+    // Define image overlays with the floor plans
+    var imageUrls = {
+      ground_floor: 'ground_floor.jpg',
+      first_floor: 'first_floor.jpg'
+    };
+
+    var imageBounds = {
+      ground_floor: [[9.877301, 78.083108], [9.877858, 78.083707]],
+      first_floor: [[9.877301, 78.083108], [9.877858, 78.083707]]
+    };
+
+    var venues = {
+      ground_floor: {
+        EVENT_X: [9.877597, 78.083138], // Coordinates for EVENT_X on the ground floor
+        EVENT_Y: [9.877597, 78.083138],   // Coordinates for EVENT_Y on the ground floor
+        EVENT_Z: [9.877384, 78.083376] // Coordinates for EVENT_Z on the ground floor
+        // Add more events for the ground floor as needed
+      },
+      first_floor: {
+        RETRONOME: [9.877597, 78.083138], // Coordinates for RETRONOME on the first floor
+        BIOSCOPE: [9.877597, 78.083138],   // Coordinates for BIOSCOPE on the first floor
+        ROLLING_SHUTTER: [9.877384, 78.083376] // Coordinates for ROLLING SHUTTER on the first floor
+        // Add more events for the first floor as needed
+      }
+    };
+
+    var activeMarker = null; // Variable to keep track of the active marker
+    var activeEvent = null; // Variable to keep track of the active event
+
+    // Initialize events list
+    var eventsList = document.getElementById('events-list');
+    for (var floor in venues) {
+      for (var event in venues[floor]) {
+        var listItem = document.createElement('li');
+        var link = document.createElement('a');
+        link.href = '#';
+        link.textContent = event + ' (' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')';
+        link.onclick = function(floor, event) { return function() { showVenue(floor, event); }; }(floor, event);
+        listItem.appendChild(link);
+        eventsList.appendChild(listItem);
+      }
+    }
+
+    // Create maps
+    var groundFloorMap = L.map('ground-floor-map').setView([9.877596, 78.083417], 20, { bearing: 90 }); // Set bearing to 90 degrees (West at the top)
+    var firstFloorMap = L.map('first-floor-map').setView([9.877596, 78.083417], 20, { bearing: 90 }); // Set bearing to 90 degrees (West at the top)
+
+    // Add image overlays to maps
+    L.imageOverlay(imageUrls.ground_floor, imageBounds.ground_floor).addTo(groundFloorMap);
+    L.imageOverlay(imageUrls.first_floor, imageBounds.first_floor).addTo(firstFloorMap);
+
+    // Function to show venue on map
+    function showVenue(floor, event) {
+      var venueCoords = venues[floor][event];
+      if (venueCoords) {
+        var map = floor === 'ground_floor' ? groundFloorMap : firstFloorMap;
+        if (activeEvent === event) {
+          // Toggle marker visibility
+          if (activeMarker) {
+            map.removeLayer(activeMarker);
+            activeMarker = null;
+          } else {
+            activeMarker = L.marker(venueCoords).addTo(map).bindPopup('Event Venue: ' + event + ' (Floor ' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')').openPopup(); // Add a marker
+          }
+        } else {
+          // Remove the active marker if exists
+          if (activeMarker) {
+            map.removeLayer(activeMarker);
+            activeMarker = null;
+          }
+          // Add new marker
+          activeMarker = L.marker(venueCoords).addTo(map).bindPopup('Event Venue: ' + event + ' (Floor ' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')').openPopup(); // Add a marker
+          activeEvent = event;
+        }
+      } else {
+        alert('Venue not found on the selected floor!');
+      }
+    }
+  </script>
+</body>
+</html>
