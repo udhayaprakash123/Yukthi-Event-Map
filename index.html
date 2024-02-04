@@ -1,188 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Building Map with Events</title>
-  <!-- Include Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <!-- Include Leaflet JavaScript -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <title>Desktop View on Mobile</title>
-  <!-- Set map height -->
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-    }
-    .map-container {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .map {
-      width: 90%;
-      height: 70%;
-    }
-    .floor-name {
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 5px;
-      border-radius: 5px;
-      text-align: center; /* Center-align the text */
-      font-size: 20px; /* Increase font size */
-    }
-  </style>
-</head>
-<body>
-  <!-- Events list -->
-  <div>
-    <h2>Management and Cultural Events</h2>
-    <!--ul id="events-list">
-      <li><a href="#" onclick="showVenue('Fintorum')">Fintorum [Finance Event]</a></li>
-      <li><a href="#" onclick="showVenue('Pinnacle')">Pinnacle [HR Event]</a></li>
-      <li><a href="#" onclick="showVenue('Lets_BID')">Let’s BID [IPL auction]</a></li>
-      <li><a href="#" onclick="showVenue('Biz_Thrive')">Biz-Thrive [Business Plan]</a></li>
-      <li><a href="#" onclick="showVenue('Quorum_Quest')">Quorum Quest [Business Quiz]</a></li>
-      <li><a href="#" onclick="showVenue('Emporia')">Emporia [Marketing Event]</a></li>
-      <li><a href="#" onclick="showVenue('Last_Knight')">Last Knight [Best Manger]</a></li>
-      <li><a href="#" onclick="showVenue('Optimize')">Sizzle & Optimize [Operations Event]</a></li>
-      <li><a href="#" onclick="showVenue('Datavista')">Datavista [Analytics Event]</a></li>
-      <li><a href="#" onclick="showVenue('Euphoria')">Euphoria [Group Dance]</a></li>
-      <li><a href="#" onclick="showVenue('Generation_Vogue')">Generation Vogue [Ramp Walk]</a></li>
-      <li><a href="#" onclick="showVenue('Cine_Scope')">Cine Scope [Cine Quiz]</a></li>
-      <li><a href="#" onclick="showVenue('Retronome')">Retronome [Solo Singing]</a></li>
-      <li><a href="#" onclick="showVenue('Fusion_Fest')">Fusion Fest [Battle of Bands</a></li>
-      <li><a href="#" onclick="showVenue('Reel_E_Tour')">Reel E Tour [Reels Contest]</a></li>
-      <li><a href="#" onclick="showVenue('Cinezer')">Cinezer [Short Film]</a></li>
-      <li><a href="#" onclick="showVenue('Mozhi')">Mozhi [Mime]</a></li>
-      <li><a href="#" onclick="showVenue('Rolling_Shutter')">Rolling Shutter'24 [Photography]</a></li>
-      <li><a href="#" onclick="showVenue('Sizzle_Shake')">Sizzle & Shake [Solo Dance]</a></li>
-      
-      
-      
-    </ul> -->
-    <ul id="events-list" style="list-style-type: none; padding-left: 0;align-self: center; display: list-item; text-align: center;"></ul>
-    <head>
-        <style>
-          h2 {
-            color: black;
-            font-size: 30px;
-            text-align: center;
-          }
-        </style>
-      </head>
-      <body>
-        <h2>USE DESKTOP VIEW</h2>
-      </body>
-  </div>
-
-  <!-- Maps container -->
-  <div class="map-container">
-    <!-- Map -->
-    <div id="map" class="map">
-      <div class="floor-name" id="floor-name">Floor Map</div>
-    </div>
-  </div>
-
-  <script>
-    // Define image overlays with the floor plans
-    var imageUrls = {
-      ground_floor: 'ground_floor.jpg',
-      first_floor: 'first_floor.jpg'
-    };
-
-    var imageBounds = {
-      ground_floor: [[9.877301, 78.083108], [9.877858, 78.083707]],
-      first_floor: [[9.877301, 78.083108], [9.877858, 78.083707]]
-    };
-
-    var floorTitles = {
-      ground_floor: 'Ground Floor',
-      first_floor: 'First Floor'
-    };
-
-    var venues = {
-      ground_floor: {
-        Fintorum: [9.877597, 78.083138], // Coordinates for EVENT_X on the ground floor
-        Pinnacle: [9.877597, 78.083138],   // Coordinates for EVENT_Y on the ground floor
-        Lets_BID: [9.877384, 78.083376], // Coordinates for EVENT_Z on the ground floor
-        Last_Knight: [9.877384, 78.083376],
-        Datavista: [9.877384, 78.083376],
-        Generation_Vogue: [9.877384, 78.083376],
-        Reel_E_Tour: [9.877384, 78.083376],
-        Mozhi: [9.877384, 78.083376],
-        Sizzle_Shake: [9.877384, 78.083376],
-        Cine_Scope: [9.877384, 78.083376],
-        
-        // Add more events for the ground floor as needed
-      },
-      first_floor: {
-        Biz_Thrive: [9.877597, 78.083138], // Coordinates for RETRONOME on the first floor
-        Quorum_Quest: [9.877597, 78.083138],   // Coordinates for BIOSCOPE on the first floor
-        Emporia: [9.877384, 78.083376], // Coordinates for ROLLING SHUTTER on the first floor
-        Optimize: [9.877384, 78.083376],
-        Cine_Scope: [9.877384, 78.083376],
-        Retronome: [9.877384, 78.083376],
-        Fusion_Fest: [9.877384, 78.083376],
-        Cinezer: [9.877384, 78.083376],
-        Rolling_Shutter: [9.877384, 78.083376],
-        
-        // Add more events for the first floor as needed
-      }
-    };
-
-    // Initialize events list
-    var eventsList = document.getElementById('events-list');
-    for (var floor in venues) {
-      for (var event in venues[floor]) {
-        var listItem = document.createElement('li');
-        var link = document.createElement('a');
-        link.href = '#';
-        link.textContent = event + ' (' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')';
-        link.onclick = function(floor, event) { return function() { showFloorMap(floor); showVenue(floor, event); }; }(floor, event);
-        listItem.appendChild(link);
-        eventsList.appendChild(listItem);
-      }
-    }
-
-    // Create map
-    var map = L.map('map').setView([9.877596, 78.083417], 19);
-
-    // Function to show floor map
-    function showFloorMap(floor) {
-      var imageUrl = imageUrls[floor];
-      var imageBound = imageBounds[floor];
-
-      map.eachLayer(function (layer) {
-        if (layer instanceof L.ImageOverlay) {
-          map.removeLayer(layer);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Map with Events</title>
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Set map height -->
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
         }
-      });
 
-      L.imageOverlay(imageUrl, imageBound).addTo(map);
+        .map-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-      // Update the floor name
-      document.getElementById('floor-name').textContent = floorTitles[floor];
-    }
+        .map {
+            width: 80%;
+            height: 90%;
+        }
 
-    // Function to show venue on map
-    function showVenue(floor, event) {
-      var venueCoords = venues[floor][event];
-      if (venueCoords) {
-        // Remove any existing markers
-        map.eachLayer(function (layer) {
-          if (layer instanceof L.Marker) {
-            map.removeLayer(layer);
-          }
-        });
-        // Add marker for the selected event
-        L.marker(venueCoords).addTo(map).bindPopup('Event Venue: ' + event + ' (Floor ' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')').openPopup();
-      } else {
-        alert('Venue not found on the selected floor!');
-      }
-    }
-  </script>
+        .floor-name {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+            /* Center-align the text */
+            font-size: 20px;
+            /* Increase font size */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 20px auto;
+            /* Center horizontally */
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Choose Event Type buttons -->
+    <div>
+        <h2>Choose Event Type</h2>
+        <div style="text-align: center;">
+            <button onclick="showEvents('management')">Management Events</button>
+            <button onclick="showEvents('cultural')">Cultural Events</button>
+        </div>
+    </div>
+    <!-- Events Table -->
+    <h2>All Events with Start Times</h2>
+    <table id="events-table">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Start Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Fintorum</td>
+                <td>10:00 AM</td>
+            </tr>
+            <tr>
+                <td>Pinnacle</td>
+                <td>11:00 AM</td>
+            </tr>
+            <!-- Add more rows for other events with their start times -->
+        </tbody>
+    </table>
+    <!-- Events List -->
+    <div>
+        <h2>Events</h2>
+        <ul id="events-list"
+            style="list-style-type: none; padding-left: 0;align-self: center; display: list-item; text-align: center;">
+        </ul>
+
+        <head>
+            <style>
+                h2 {
+                    color: black;
+                    font-size: 30px;
+                    text-align: center;
+                }
+            </style>
+        </head>
+
+        <body>
+            <h2>USE DESKTOP VIEW</h2>
+        </body>
+    </div>
+
+
+
+    <!-- Maps container -->
+    <div class="map-container">
+        <!-- Map -->
+        <div id="map" class="map">
+            <div class="floor-name" id="floor-name">Floor Map</div>
+        </div>
+    </div>
+
+    <script>
+        // Define image overlays with the floor plans
+        var imageUrls = {
+            ground_floor: 'ground_floor.jpg',
+            first_floor: 'first_floor.jpg'
+        };
+
+        var imageBounds = {
+            ground_floor: [[9.877301, 78.083108], [9.877858, 78.083707]],
+            first_floor: [[9.877301, 78.083108], [9.877858, 78.083707]]
+        };
+
+        var floorTitles = {
+            ground_floor: 'Ground Floor',
+            first_floor: 'First Floor'
+        };
+
+        var venues = {
+            ground_floor: {
+                Fintorum: [9.877597, 78.083138], // Coordinates for EVENT_X on the ground floor
+                Pinnacle: [9.877597, 78.083138],   // Coordinates for EVENT_Y on the ground floor
+                Lets_BID: [9.877384, 78.083376], // Coordinates for EVENT_Z on the ground floor
+                Last_Knight: [9.877384, 78.083376],
+                Datavista: [9.877384, 78.083376],
+                Generation_Vogue: [9.877384, 78.083376],
+                Reel_E_Tour: [9.877384, 78.083376],
+                Mozhi: [9.877384, 78.083376],
+                Sizzle_Shake: [9.877384, 78.083376],
+                Cine_Scope: [9.877384, 78.083376],
+            },
+            first_floor: {
+                Biz_Thrive: [9.877597, 78.083138], // Coordinates for RETRONOME on the first floor
+                Quorum_Quest: [9.877597, 78.083138],   // Coordinates for BIOSCOPE on the first floor
+                Emporia: [9.877384, 78.083376], // Coordinates for ROLLING SHUTTER on the first floor
+                Optimize: [9.877384, 78.083376],
+                Cine_Scope: [9.877384, .083376],
+                Retronome: [9.877384, 78.083376],
+                Fusion_Fest: [9.877384, 78.083376],
+                Cinezer: [9.877384, 78.083376],
+                Rolling_Shutter: [9.877384, 78.083376],
+            }
+        };
+
+        // Initialize events list
+        var eventsList = document.getElementById('events-list');
+
+        // Create map
+        var map = L.map('map').setView([9.877596, 78.083417], 20);
+
+        // Function to show floor map
+        function showFloorMap(floor) {
+            var imageUrl = imageUrls[floor];
+            var imageBound = imageBounds[floor];
+
+            map.eachLayer(function (layer) {
+                if (layer instanceof L.ImageOverlay) {
+                    map.removeLayer(layer);
+                }
+            });
+
+            L.imageOverlay(imageUrl, imageBound).addTo(map);
+
+            // Update the floor name
+            document.getElementById('floor-name').textContent = floorTitles[floor];
+        }
+
+        // Function to show venue on map
+        function showVenue(floor, event) {
+            var venueCoords = venues[floor][event];
+            if (venueCoords) {
+                // Remove any existing markers
+                map.eachLayer(function (layer) {
+                    if (layer instanceof L.Marker) {
+                        map.removeLayer(layer);
+                    }
+                });
+                // Add marker for the selected event
+                L.marker(venueCoords).addTo(map).bindPopup('Event Venue: ' + event + ' (Floor ' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')').openPopup();
+            } else {
+                alert('Venue not found on the selected floor!');
+            }
+        }
+
+        // Function to show events based on selection
+        function showEvents(eventType) {
+            var mapContainer = document.querySelector('.map-container');
+
+            // Clear events list
+            eventsList.innerHTML = '';
+
+            var events;
+            if (eventType === 'management') {
+                events = {
+                    ground_floor: ['Fintorum', 'Pinnacle', 'Lets_BID', 'Last_Knight', 'Datavista'],
+                    first_floor: ['Biz_Thrive', 'Quorum_Quest', 'Emporia', 'Optimize']
+                };
+            } else if (eventType === 'cultural') {
+                events = {
+                    ground_floor: ['Generation_Vogue', 'Reel_E_Tour', 'Mozhi', 'Sizzle_Shake', 'Cine_Scope'],
+                    first_floor: ['Retronome', 'Fusion_Fest', 'Cinezer', 'Rolling_Shutter']
+                };
+            }
+
+            // Populate events list based on eventType
+            for (var floor in events) {
+                events[floor].forEach(function (event) {
+                    var listItem = document.createElement('li');
+                    var link = document.createElement('a');
+                    link.href = '#';
+                    link.textContent = event + ' (' + floor.charAt(0).toUpperCase() + floor.slice(1) + ')';
+                    link.onclick = function (floor, event) { return function () { showFloorMap(floor); showVenue(floor, event); }; }(floor, event);
+                    listItem.appendChild(link);
+                    eventsList.appendChild(listItem);
+                });
+            }
+
+            // Show the map container after selecting event type
+            mapContainer.style.display = 'flex';
+        }
+    </script>
 </body>
+
 </html>
