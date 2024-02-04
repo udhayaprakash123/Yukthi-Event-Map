@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <!-- Include Leaflet JavaScript -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <title>Desktop View on Mobile</title>
   <!-- Set map height -->
   <style>
     body, html {
@@ -38,7 +39,19 @@
   <!-- Events list -->
   <div>
     <h2>Events</h2>
-    <ul id="events-list"></ul>
+    <ul id="events-list" style="list-style-type: none; padding-left: 0;align-self: center; display: list-item; text-align: center;"></ul>
+    <head>
+        <style>
+          h2 {
+            color: black;
+            font-size: 30px;
+            text-align: center;
+          }
+        </style>
+      </head>
+      <body>
+        <h2>USE DESKTOP VIEW</h2>
+      </body>
   </div>
 
   <!-- Maps container -->
