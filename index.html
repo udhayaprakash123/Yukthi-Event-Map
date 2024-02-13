@@ -15,7 +15,7 @@
         html {
             height: 100%;
             margin: 0;
-            background-color: #FBFF85;
+            background: linear-gradient(to right, #070920,#121642, #070920);
         }
 
         .map-container {
@@ -29,16 +29,18 @@
         .map {
             width: 90%;
             height: 70%;
-            background-color: #FFD485;
+            background-color: #363852;
         }
 
         .floor-name {
-            background-color: #DAB012;
+            background-color: #363852;
             padding: 5px;
             border-radius: 5px;
             text-align: center;
             /* Center-align the text */
-            font-size: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #d3af37;
             /* Increase font size */
         }
 
@@ -46,7 +48,8 @@
             border-collapse: collapse;
             width: 90%;
             margin: 20px auto;
-            background-color: #FFD485;
+            background-color: #363852;
+            color: white;
             /* Center horizontally */
         }
 
@@ -55,10 +58,12 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            background-color: #363852;
+            color: white;
         }
 
         th {
-            background-color: #DAB012;
+            background-color: #414A8A;;
         }
 
         /* Overlay text style */
@@ -80,11 +85,12 @@
         <div style="margin-left: 20px;">
             <img src="Yukti_Logo.png" alt="Left Logo" style="width: 100px;">
         </div>
-        <div>
+        <img src="Yukti-removebg-preview.png" alt="Left Logo" style="width: 500px;">
+        <!--div>
             <h1
                 style="margin: 0; font-size: 60px; background: linear-gradient(to right, gold, orange); background-clip: text; -webkit-text-fill-color: transparent;">
                 Yukti'24</h1>
-        </div>
+        </div-->
         <div style="margin-right: 20px;">
             <img src="TSM.png" alt="Right Logo" style="width: 100px;">
         </div>
@@ -114,6 +120,7 @@
                     color: black;
                     font-size: 30px;
                     text-align: center;
+                    color: #d3af37;
                 }
             </style>
         </head>
@@ -151,7 +158,6 @@
                     <th>Venue</th>
                     <th>Date</th>
                     <th>Start Time</th>
-                    <th>End Time</th>
                     <th>Floor</th>
                 </tr>
             </thead>
@@ -206,8 +212,8 @@
         var venues = {
             Ground_floor: {
                 Cinezer: [9.8776377, 78.0834084], //Seminar hall
-                Reel_2_Real_1st_round: [9.8777556, 78.0833245], // Coordinates for Reel 2 Real 1st round on the first floor
-                Reel_2_Real_2nd_round: [9.8777556, 78.0833245], // Coordinates for Reel 2 Real 2nd round on the first floor
+                Reel_2_Real_1st_round: [9.8777784, 78.0834553], // Coordinates for Reel 2 Real 1st round on the first floor
+                Reel_2_Real_2nd_round: [9.8777784, 78.0834553], // Coordinates for Reel 2 Real 2nd round on the first floor
             },
             First_floor: {
                 Sizzle_and_shake_Prelims: [9.8776136, 78.0831338],
@@ -327,8 +333,8 @@
                     { name: 'Mozhi', venue: 'Exam Hall', date: '24-02-2024', start_time: '9:30 AM', end_time: '11:30 AM', floor: 'First_floor' },
                     { name: 'Cinescope_Prelims', venue: 'Exam Hall', date: '24-02-2024', start_time: '1:00 PM', end_time: '2:00 PM', floor: 'First_floor' },
                     { name: 'Cinescope_Finals', venue: 'I MBA - B', date: '24-02-2024', start_time: '2:00 PM', end_time: '4:00 PM', floor: 'First_floor' },
-                    { name: 'Reel_2_Real_1st_round', venue: 'I PGDM', date: '24-02-2024', start_time: '9:00 AM', end_time: '12:00 PM', floor: 'Ground_floor' },
-                    { name: 'Reel_2_Real_2nd_round', venue: 'I PGDM', date: '24-02-2024', start_time: '12:00 PM', end_time: '2:00 PM', floor: 'Ground_floor' },
+                    { name: 'Reel_2_Real_1st_round', venue: 'I PGDM B', date: '24-02-2024', start_time: '9:00 AM', end_time: '12:00 PM', floor: 'Ground_floor' },
+                    { name: 'Reel_2_Real_2nd_round', venue: 'I PGDM B', date: '24-02-2024', start_time: '12:00 PM', end_time: '2:00 PM', floor: 'Ground_floor' },
                     { name: 'Cinezer', venue: 'Seminar hall', date: '24-02-2024', start_time: '9:00 AM', end_time: '12:30 PM', floor: 'Ground_floor' },
                     { name: 'Rolling_Shutter', venue: 'I MBA - B', date: '24-02-2024', start_time: '9:00 AM', end_time: '12:00 PM', floor: 'First_floor' }
                 ];
@@ -342,17 +348,18 @@
                     row.insertCell(1).textContent = event.venue;
                     row.insertCell(2).textContent = event.date;
                     row.insertCell(3).textContent = event.start_time;
-                    row.insertCell(4).textContent = event.end_time;
+                   // row.insertCell(4).textContent = event.end_time;
                     // row.insertCell(5).textContent = event.floor;
                     var venueLink = document.createElement('a');
                     venueLink.href = '#';
                     venueLink.textContent = event.floor; // Link text will be the event name
+                    venueLink.style.color = 'white'
                     venueLink.onclick = function () {
                         showVenue(event.floor, event.name);
                         return false; // Prevent default behavior of link
                     };
                     // Add the link to the cell in the "Event Name" column
-                    var cell = row.insertCell(5); // Insert the link into the first column
+                    var cell = row.insertCell(4); // Insert the link into the first column
                     cell.appendChild(venueLink);
                 });
 
