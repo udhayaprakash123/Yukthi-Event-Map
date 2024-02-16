@@ -14,21 +14,24 @@
         body,
         html {
             height: 100%;
-            margin: 0;
-            background: linear-gradient(to right, #070920,#121642, #070920);
+            margin: 10;
+            background: linear-gradient(to right, #070920, #121642, #070920);
+            border: 100;
         }
 
         .map-container {
-            height: 100%;
+            height: 50vh; /* Adjust height as per your requirement */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+           
         }
 
         .map {
             width: 90%;
-            height: 70%;
+            height: 100%; /* Adjust height as per your requirement */
+            max-width: 600px; /* Limit maximum width for better readability */
             background-color: #363852;
         }
 
@@ -37,11 +40,9 @@
             padding: 5px;
             border-radius: 5px;
             text-align: center;
-            /* Center-align the text */
             font-size: 30px;
             font-weight: bold;
             color: #d3af37;
-            /* Increase font size */
         }
 
         table {
@@ -50,7 +51,6 @@
             margin: 20px auto;
             background-color: #363852;
             color: white;
-            /* Center horizontally */
         }
 
         th,
@@ -63,7 +63,7 @@
         }
 
         th {
-            background-color: #414A8A;;
+            background-color: #414a8a;
         }
 
         /* Overlay text style */
@@ -83,29 +83,24 @@
     <!-- Company Logos and Text -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div style="margin-left: 20px;">
-            <img src="Yukti_Logo.png" alt="Left Logo" style="width: 100px;">
+            <img src="Yukti_Logo.png" alt="Left Logo" style="width: 50px;"> <!-- Adjust image size -->
         </div>
-        <img src="Yukti-removebg-preview.png" alt="Left Logo" style="width: 500px;">
-        <!--div>
-            <h1
-                style="margin: 0; font-size: 60px; background: linear-gradient(to right, gold, orange); background-clip: text; -webkit-text-fill-color: transparent;">
-                Yukti'24</h1>
-        </div-->
+        <img src="Yukti-removebg-preview.png" alt="Left Logo" style="width: 250px;"> <!-- Adjust image size -->
         <div style="margin-right: 20px;">
-            <img src="TSM.png" alt="Right Logo" style="width: 100px;">
+            <img src="TSM.png" alt="Right Logo" style="width: 50px;"> <!-- Adjust image size -->
         </div>
     </div>
 
     <!-- Choose Event Type buttons with images and text overlay -->
     <div>
-        <h2>Choose Event Type</h2>
+        <h2 style="text-align: center;">Choose Event Type</h2>
         <div style="text-align: center;">
             <button onclick="showEvents('management')" style="position: relative;">
-                <img src="business3.jpg" alt="Management Event Image" style="width: 250px; aspect-ratio: 1;">
+                <img src="business3.jpg" alt="Management Event Image" style="max-width: 100%; height: 250px;">
                 <span class="overlay-text">Management Events</span>
             </button>
             <button onclick="showEvents('cultural')" style="position: relative;">
-                <img src="cultural.jpg" alt="Cultural Event Image" style="width: 250px; aspect-ratio: 1;">
+                <img src="cultural.jpg" alt="Cultural Event Image" style="max-width: 100%; height: 250px;">
                 <span class="overlay-text">Cultural Events</span>
             </button>
         </div>
@@ -113,26 +108,12 @@
 
     <!-- Events List -->
     <div>
-
-        <head>
-            <style>
-                h2 {
-                    color: black;
-                    font-size: 30px;
-                    text-align: center;
-                    color: #d3af37;
-                }
-            </style>
-        </head>
-
-        <body>
-            <h2>USE DESKTOP VIEW</h2>
-        </body>
+        <h2 style="text-align: center;">USE DESKTOP VIEW</h2>
     </div>
 
     <!-- Management Events Table -->
     <div id="management-table" style="display:none;">
-        <h2>Management Events with Start Times</h2>
+        <h2 style="text-align: center;">Management Events with Start Times</h2>
         <table>
             <thead>
                 <tr>
@@ -148,9 +129,8 @@
     </div>
 
     <!-- Cultural Events Table -->
-    <!-- Cultural Events Table -->
     <div id="cultural-table" style="display:none;">
-        <h2>Cultural Events with Start Times</h2>
+        <h2 style="text-align: center;">Cultural Events with Start Times</h2>
         <table>
             <thead>
                 <tr>
@@ -176,8 +156,8 @@
     </div>
 
     <script>
-        // Define image overlays with the floor plans
-        var imageUrls = {
+       // Define image overlays with the floor plans
+       var imageUrls = {
             Ground_floor: 'ground_floor.jpg',
             First_floor: 'first_floor.jpg'
         };
@@ -367,7 +347,6 @@
                 culturalTable.style.display = 'block';
             }
         }
-
 
     </script>
 </body>
