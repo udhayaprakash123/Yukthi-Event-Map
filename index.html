@@ -14,24 +14,21 @@
         body,
         html {
             height: 100%;
-            margin: 10;
+            margin: 0;
             background: linear-gradient(to right, #070920, #121642, #070920);
-            border: 100;
         }
 
         .map-container {
-            height: 50vh; /* Adjust height as per your requirement */
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-           
         }
 
         .map {
             width: 90%;
-            height: 100%; /* Adjust height as per your requirement */
-            max-width: 600px; /* Limit maximum width for better readability */
+            height: 70%;
             background-color: #363852;
         }
 
@@ -40,9 +37,11 @@
             padding: 5px;
             border-radius: 5px;
             text-align: center;
+            /* Center-align the text */
             font-size: 30px;
             font-weight: bold;
             color: #d3af37;
+            /* Increase font size */
         }
 
         table {
@@ -51,6 +50,7 @@
             margin: 20px auto;
             background-color: #363852;
             color: white;
+            /* Center horizontally */
         }
 
         th,
@@ -63,7 +63,8 @@
         }
 
         th {
-            background-color: #414a8a;
+            background-color: #414A8A;
+            ;
         }
 
         /* Overlay text style */
@@ -83,24 +84,29 @@
     <!-- Company Logos and Text -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div style="margin-left: 20px;">
-            <img src="Yukti_Logo.png" alt="Left Logo" style="width: 50px;"> <!-- Adjust image size -->
+            <img src="Yukti_Logo.png" alt="Left Logo" style="width: 100px;">
         </div>
-        <img src="Yukti-removebg-preview.png" alt="Left Logo" style="width: 250px;"> <!-- Adjust image size -->
+        <img src="Yukti-removebg-preview.png" alt="Left Logo" style="width: 500px;">
+        <!--div>
+            <h1
+                style="margin: 0; font-size: 60px; background: linear-gradient(to right, gold, orange); background-clip: text; -webkit-text-fill-color: transparent;">
+                Yukti'24</h1>
+        </div-->
         <div style="margin-right: 20px;">
-            <img src="TSM.png" alt="Right Logo" style="width: 50px;"> <!-- Adjust image size -->
+            <img src="TSM.png" alt="Right Logo" style="width: 100px;">
         </div>
     </div>
 
     <!-- Choose Event Type buttons with images and text overlay -->
     <div>
-        <h2 style="text-align: center;">Choose Event Type</h2>
+        <h2>Choose Event Type</h2>
         <div style="text-align: center;">
             <button onclick="showEvents('management')" style="position: relative;">
-                <img src="business3.jpg" alt="Management Event Image" style="max-width: 100%; height: 250px;">
+                <img src="business3.jpg" alt="Management Event Image" style="width: 250px; aspect-ratio: 1;">
                 <span class="overlay-text">Management Events</span>
             </button>
             <button onclick="showEvents('cultural')" style="position: relative;">
-                <img src="cultural.jpg" alt="Cultural Event Image" style="max-width: 100%; height: 250px;">
+                <img src="cultural.jpg" alt="Cultural Event Image" style="width: 250px; aspect-ratio: 1;">
                 <span class="overlay-text">Cultural Events</span>
             </button>
         </div>
@@ -108,18 +114,33 @@
 
     <!-- Events List -->
     <div>
-        <h2 style="text-align: center;">USE DESKTOP VIEW</h2>
+
+        <head>
+            <style>
+                h2 {
+                    color: black;
+                    font-size: 30px;
+                    text-align: center;
+                    color: #d3af37;
+                }
+            </style>
+        </head>
+
+        <body>
+            <h2>USE DESKTOP VIEW</h2>
+        </body>
     </div>
 
     <!-- Management Events Table -->
     <div id="management-table" style="display:none;">
-        <h2 style="text-align: center;">Management Events with Start Times</h2>
+        <h2>Management Events with Start Times</h2>
         <table>
             <thead>
                 <tr>
                     <th>Event Name</th>
-                    <th>Start Time</th>
                     <th>Venue</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
                 </tr>
             </thead>
             <tbody id="management-events">
@@ -129,8 +150,9 @@
     </div>
 
     <!-- Cultural Events Table -->
+    <!-- Cultural Events Table -->
     <div id="cultural-table" style="display:none;">
-        <h2 style="text-align: center;">Cultural Events with Start Times</h2>
+        <h2>Cultural Events with Start Times</h2>
         <table>
             <thead>
                 <tr>
@@ -138,7 +160,6 @@
                     <th>Venue</th>
                     <th>Date</th>
                     <th>Start Time</th>
-                    <th>Floor</th>
                 </tr>
             </thead>
             <tbody id="cultural-events">
@@ -156,15 +177,15 @@
     </div>
 
     <script>
-       // Define image overlays with the floor plans
-       var imageUrls = {
+        // Define image overlays with the floor plans
+        var imageUrls = {
             Ground_floor: 'ground_floor.jpg',
             First_floor: 'first_floor.jpg'
         };
 
         var imageBounds = {
             Ground_floor: [[9.877301, 78.083108], [9.877858, 78.083707]],
-            First_floor: [[9.877301, 78.083108], [9.877858, 78.083707]]
+            First_floor: [[9.877330, 78.082994], [9.878047, 78.083711]]
         };
 
         var floorTitles = {
@@ -189,11 +210,41 @@
         Discussion hall ----------------------9.8778157, 78.0836722
         
         Exam hall ----------------------------9.8778788, 78.0830634*/
+
+        var venue_location = {
+            Ground_floor: {
+                I_PGDM_A: [9.877776, 78.083323],
+                I_PGDM_B: [9.877777, 78.083449],
+                I_PGDM_C: [9.877739, 78.083592],
+                Seminar_hall: [9.877644, 78.083413],
+                MDP: [9.877808, 78.083681],
+            },
+
+
+            First_floor: {
+                I_MBA_A: [9.877385, 78.083460],
+                I_MBA_B: [9.877373, 78.083364],
+                II_MBA_A: [9.877462, 78.083581],
+                II_MBA_B: [9.877741, 78.083585],
+                Auditorium: [9.877668, 78.083116],
+                Exam_Hall: [9.877906, 78.083020],
+            }
+
+        }
         var venues = {
             Ground_floor: {
-                Cinezer: [9.8776377, 78.0834084], //Seminar hall
+                //Cinezer: venue_location[], //Seminar hall
                 Reel_2_Real_1st_round: [9.8777784, 78.0834553], // Coordinates for Reel 2 Real 1st round on the first floor
                 Reel_2_Real_2nd_round: [9.8777784, 78.0834553], // Coordinates for Reel 2 Real 2nd round on the first floor
+                Emporia: [9.8777556, 78.0833245], // at venue PGDM_I_A
+                Fintorum: [9.8777784, 78.0834553], // at venue PGDM_I_B
+                Datavista: [9.8777305, 78.0835525], // at venue PGDM_I_C
+                Snake_and_Lader: [9.8776377, 78.0834084], // at venue Seminar_Hall_1
+                Biz_Thrive: [9.8778157, 78.0836722], // at venue MDP
+                Emporia_Day_2: [9.8777556, 78.0833245], // at venue PGDM_I_A
+                Datavista_Day_2: [9.8777305, 78.0835525], // at venue PGDM_I_C
+                The_Last_Knight: [9.8778157, 78.0836722], // at venue MDP
+
             },
             First_floor: {
                 Sizzle_and_shake_Prelims: [9.8776136, 78.0831338],
@@ -201,7 +252,16 @@
                 Mozhi: [9.8778788, 78.0830634],             // Coordinates for Mozhi on the first floor
                 Cinescope_Prelims: [9.8778788, 78.0830634], // Coordinates for Cinescope Prelims on the first floor
                 Cinescope_Finals: [9.8773784, 78.0833779],  // Coordinates for Cinescope Finals on the first floor 
-                Rolling_Shutter: [9.8777242, 78.0835408]           // Coordinates for Cinezer on the first floor
+                Rolling_Shutter: [9.8777242, 78.0835408],           // Coordinates for Cinezer on the first floor
+                Pinnacle: [9.8774078, 78.0835066], //  at venue MBA_I_A
+                The_Last_Knight_Round_1: [9.8774801, 78.0835790], // at venue MBA_II_A
+                Optimize_and_Guest_Lecture: [9.8777242, 78.0835408], //  at venue MBA_II_B
+                Pinnacle_Day_2: [9.8774078, 78.0835066], //  at venue MBA_I_A
+                Fintorum_Day_2: [9.8774801, 78.0835790], //  at venue MBA_II_A
+                Optimize: [9.8777242, 78.0835408], //  at venue MBA_II_B
+                //Add_On: [9.8776136, 78.0831338], // at venue Auditorium
+                Quorum_Quest_Prelims: [9.8778788, 78.0830634], //exam hall
+                Lets_Bid: [9.8778788, 78.0830634], //exam hall
             }
         };
 
@@ -232,14 +292,15 @@
         }
 
         // Function to show venue on map
-        function showVenue(floor, event) {
+        function showVenue(floor, event, venue) {
             console.log("floor  ", floor)
             console.log("event  ", event)
+            console.log("venue  ", venue)
             if (floor == "Stage") {
                 alert('The Venue is the Main Stage');
             }
             else {
-                var venueCoords = venues[floor][event];
+                var venueCoords = venue_location[floor][venue];
                 console.log("venueCoords  ", venueCoords)
                 if (venueCoords) {
                     // Show the floor map first
@@ -271,75 +332,252 @@
             document.getElementById('cultural-events').innerHTML = '';
 
             if (eventType === 'management') {
-                var managementEvents = [
-                    { name: 'Fintorum', time: '10:00 AM', venue: 'Ground_floor' },
-                    { name: 'Pinnacle', time: '11:00 AM', venue: 'Ground_floor' },
-                    { name: 'Lets_BID', time: '12:00 PM', venue: 'Ground_floor' },
-                    { name: 'Last_Knight', time: '1:00 PM', venue: 'Ground_floor' },
-                    { name: 'Datavista', time: '2:00 PM', venue: 'Ground_floor' },
-                    { name: 'Biz_Thrive', time: '3:00 PM', venue: 'First_floor' },
-                    { name: 'Quorum_Quest', time: '4:00 PM', venue: 'First_floor' },
-                    { name: 'Emporia', time: '5:00 PM', venue: 'First_floor' },
-                    { name: 'Optimize', time: '6:00 PM', venue: 'First_floor' }
-                ];
+                var managementEventsDay1 = [
 
+                    {
+                        name: 'Emporia',
+                        venue: 'I_PGDM_A',
+                        date: '23-02-2024',
+                        start_time: '11:45 AM',
+                        floor: 'Ground_floor'
+                    },
+                    {
+                        name: 'Fintorum',
+                        venue: 'I_PGDM_B',
+                        date: '23-02-2024',
+                        start_time: '10:30 AM',
+                        floor: 'Ground_floor'
+                    },
+                    {
+                        name: 'Datavista',
+                        venue: 'I_PGDM_C',
+                        date: '23-02-2024',
+                        start_time: '10:30 AM',
+                        floor: 'Ground_floor'
+                    },
+                    {
+                        name: 'Pinnacle',
+                        venue: 'I_MBA_A',
+                        date: '23-02-2024',
+                        start_time: '11:45 AM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'The_Last_Knight',
+                        venue: 'II_MBA_A',
+                        date: '23-02-2024',
+                        start_time: '10:30 AM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'Optimize',
+                        venue: 'II_MBA_B',
+                        date: '23-02-2024',
+                        start_time: '01:00 PM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'Biz_Thrive',
+                        venue: 'MDP',
+                        date: '23-02-2024',
+                        start_time: '10:30 AM',
+                        floor: 'Ground_floor'
+                    },
+                    {
+                        name: 'Quorum_Quest',
+                        venue: 'Exam_Hall',
+                        date: '23-02-2024',
+                        start_time: '10:45 AM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'Lets_Bid',
+                        venue: 'Exam_Hall',
+                        date: '23-02-2024',
+                        start_time: '01:15 PM',
+                        floor: 'First_floor'
+                    },
+                ];
+                var managementEventsDay2 = [
+                    {
+                        name: 'Emporia',
+                        venue: 'I_PGDM_A',
+                        date: '24-02-2024',
+                        start_time: '09:00 AM',
+                        floor: 'Ground_floor'
+                    },
+                    {
+                        name: 'Fintorum',
+                        venue: 'II_MBA_A',
+                        date: '23-02-2024',
+                        start_time: '10:30 AM',
+                        floor: 'Ground_floor'
+                    },
+                    {
+                        name: 'Datavista',
+                        venue: 'I_PGDM_C',
+                        date: '23-02-2024',
+                        start_time: '10:30 AM',
+                        floor: 'Ground_floor'
+                    },
+                    {
+                        name: 'Pinnacle',
+                        venue: 'I_MBA_A',
+                        date: '23-02-2024',
+                        start_time: '11:45 AM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'The_Last_Knight',
+                        venue: 'MDP',
+                        date: '23-02-2024',
+                        start_time: '10:30 AM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'Optimize',
+                        venue: 'II_MBA_B',
+                        date: '23-02-2024',
+                        start_time: '01:00 PM',
+                        floor: 'First_floor'
+                    },
+                ];
                 // Populate management events table
                 var managementEventsTable = document.getElementById('management-events');
-                managementEvents.forEach(function (event) {
+                managementEventsDay1.forEach(function (event) {
                     var row = managementEventsTable.insertRow();
                     row.insertCell(0).textContent = event.name;
-                    row.insertCell(1).textContent = event.time;
-                    var venueLink = document.createElement('a');
-                    venueLink.href = '#';
-                    venueLink.textContent = 'Show Venue';
-                    venueLink.onclick = function () {
-                        showVenue(event.venue, event.name);
-                        return false; // Prevent default behavior of link
-                    };
-                    var cell = row.insertCell(2);
-                    cell.appendChild(venueLink);
-                });
-
-                managementTable.style.display = 'block';
-                culturalTable.style.display = 'none';
-            } else if (eventType === 'cultural') {
-                var culturalEvents = [
-                    { name: 'Generations_in_Vogue', venue: 'On Stage', date: '23-02-2024', start_time: '7:00 PM', end_time: '9:00 PM', floor: 'Stage' },
-                    { name: 'Fusion_Fest', venue: 'On Stage', date: '24-02-2024', start_time: '8:30 AM', end_time: '11:00 AM', floor: 'Stage' },
-                    { name: 'Euphoria', venue: 'On Stage', date: '24-02-2024', start_time: '12:00 PM', end_time: '2:30 PM', floor: 'Stage' },
-                    { name: 'Sizzle_and_shake_Prelims', venue: 'Auditorium', date: '24-02-2024', start_time: '9:00 AM', end_time: '11:30 AM', floor: 'First_floor' },
-                    { name: 'Sizzle_and_shake_Finals', venue: 'On Stage', date: '24-02-2024', start_time: '3:00 PM', end_time: '4:00 PM', floor: 'Stage' },
-                    { name: 'Retronome', venue: 'Auditorium', date: '24-02-2024', start_time: '11:30 PM', end_time: '2:00 PM', floor: 'First_floor' },
-                    { name: 'Mozhi', venue: 'Exam Hall', date: '24-02-2024', start_time: '9:30 AM', end_time: '11:30 AM', floor: 'First_floor' },
-                    { name: 'Cinescope_Prelims', venue: 'Exam Hall', date: '24-02-2024', start_time: '1:00 PM', end_time: '2:00 PM', floor: 'First_floor' },
-                    { name: 'Cinescope_Finals', venue: 'I MBA - B', date: '24-02-2024', start_time: '2:00 PM', end_time: '4:00 PM', floor: 'First_floor' },
-                    { name: 'Reel_2_Real_1st_round', venue: 'I PGDM B', date: '24-02-2024', start_time: '9:00 AM', end_time: '12:00 PM', floor: 'Ground_floor' },
-                    { name: 'Reel_2_Real_2nd_round', venue: 'I PGDM B', date: '24-02-2024', start_time: '12:00 PM', end_time: '2:00 PM', floor: 'Ground_floor' },
-                    { name: 'Cinezer', venue: 'Seminar hall', date: '24-02-2024', start_time: '9:00 AM', end_time: '12:30 PM', floor: 'Ground_floor' },
-                    { name: 'Rolling_Shutter', venue: 'I MBA - B', date: '24-02-2024', start_time: '9:00 AM', end_time: '12:00 PM', floor: 'First_floor' }
-                ];
-
-
-                // Populate cultural events table
-                var culturalEventsTable = document.getElementById('cultural-events');
-                culturalEvents.forEach(function (event) {
-                    var row = culturalEventsTable.insertRow();
-                    row.insertCell(0).textContent = event.name;
                     row.insertCell(1).textContent = event.venue;
-                    row.insertCell(2).textContent = event.date;
-                    row.insertCell(3).textContent = event.start_time;
-                   // row.insertCell(4).textContent = event.end_time;
+                    row.insertCell(2).textContent = event.start_time;
+                    // row.insertCell(4).textContent = event.end_time;
                     // row.insertCell(5).textContent = event.floor;
                     var venueLink = document.createElement('a');
                     venueLink.href = '#';
                     venueLink.textContent = event.floor; // Link text will be the event name
                     venueLink.style.color = 'white'
                     venueLink.onclick = function () {
-                        showVenue(event.floor, event.name);
+                        showVenue(event.floor, event.name, event.venue);
                         return false; // Prevent default behavior of link
                     };
                     // Add the link to the cell in the "Event Name" column
-                    var cell = row.insertCell(4); // Insert the link into the first column
+                    var cell = row.insertCell(3); // Insert the link into the first column
+                    cell.appendChild(venueLink);
+                });
+
+                managementTable.style.display = 'block';
+                culturalTable.style.display = 'none';
+            } else if (eventType === 'cultural') {
+                var culturalEventsDay1 = [
+                    {
+                        name: 'Generations_in_Vogue',
+                        venue: 'On_Stage',
+                        date: '23-02-2024',
+                        start_time: '7:00 PM',
+                        floor: 'Stage'
+                    }];
+                var culturalEventsDay2 = [
+                    {
+                        name: 'Fusion_Fest',
+                        venue: 'On_Stage',
+                        date: '24-02-2024',
+                        start_time: '8:30 AM',
+                        floor: 'Stage'
+                    },
+                    {
+                        name: 'Euphoria',
+                        venue: 'On_Stage',
+                        date: '24-02-2024',
+                        start_time: '12:00 PM',
+                        floor: 'Stage'
+                    },
+                    {
+                        name: 'Sizzle_and_shake_Prelims',
+                        venue: 'Auditorium',
+                        date: '24-02-2024',
+                        start_time: '9:00 AM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'Sizzle_and_shake_Finals',
+                        venue: 'On_Stage',
+                        date: '24-02-2024',
+                        start_time: '3:00 PM',
+                        floor: 'Stage'
+                    },
+                    {
+                        name: 'Retronome',
+                        venue: 'Auditorium',
+                        date: '24-02-2024',
+                        start_time: '11:30 PM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'Mozhi',
+                        venue: 'Exam_Hall',
+                        date: '24-02-2024',
+                        start_time: '9:30 AM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'Cinescope_Prelims',
+                        venue: 'Exam_Hall',
+                        date: '24-02-2024',
+                        start_time: '1:00 PM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'Cinescope_Finals',
+                        venue: 'I_MBA_B',
+                        date: '24-02-2024',
+                        start_time: '2:00 PM',
+                        floor: 'First_floor'
+                    },
+                    {
+                        name: 'Reel_2_Real',
+                        venue: 'I_PGDM_B',
+                        date: '24-02-2024',
+                        start_time: '9:00 AM',
+                        floor: 'Ground_floor'
+                    },
+                    {
+                        name: 'Cinezer',
+                        venue: 'Seminar_hall',
+                        date: '24-02-2024',
+                        start_time: '9:00 AM',
+                        floor: 'Ground_floor'
+                    },
+                    {
+                        name: 'Rolling_Shutter',
+                        venue: 'I_MBA_B',
+                        date: '24-02-2024',
+                        start_time: '9:00 AM',
+                        floor: 'First_floor'
+                    }
+                ];
+
+
+                // Populate cultural events table
+                console.log('entered')
+                var culturalEventsTable = document.getElementById('cultural-events');
+                culturalEventsDay1.forEach(function (event) {
+                    var row = culturalEventsTable.insertRow();
+                    row.insertCell(0).textContent = event.name;
+                    row.insertCell(1).textContent = event.venue;
+                    row.insertCell(2).textContent = event.start_time;
+                    // row.insertCell(4).textContent = event.end_time;
+                    console.log('Row', event.name)
+                    // row.insertCell(5).textContent = event.floor;
+                    var venueLink = document.createElement('a');
+                    venueLink.href = '#';
+                    venueLink.textContent = event.floor; // Link text will be the event name
+                    venueLink.style.color = 'white'
+                    console.log('Row', event.venue)
+                    venueLink.onclick = function () {
+                        showVenue(event.floor, event.name, event.venue);
+                        return false; // Prevent default behavior of link
+                    };
+                    // Add the link to the cell in the "Event Name" column
+                    var cell = row.insertCell(3); // Insert the link into the first column
                     cell.appendChild(venueLink);
                 });
 
@@ -347,6 +585,7 @@
                 culturalTable.style.display = 'block';
             }
         }
+
 
     </script>
 </body>
