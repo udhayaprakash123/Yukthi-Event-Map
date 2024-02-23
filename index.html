@@ -178,7 +178,7 @@
 
     <!-- Management Events Table -->
     <div id="management-table" style="display:none;">
-        <h2>Management Events - Day 1</h2>
+        <h2>Management Events - Day 2</h2>
         <table>
             <thead>
                 <tr>
@@ -197,7 +197,7 @@
     <!-- Cultural Events Table -->
     <!-- Cultural Events Table -->
     <div id="cultural-table" style="display:none;">
-        <h2>Cultural Events - Day 1</h2>
+        <h2>Cultural Events - Day 2</h2>
         <table>
             <thead>
                 <tr>
@@ -454,42 +454,42 @@
                     {
                         name: 'Fintorum',
                         venue: 'II_MBA_A',
-                        date: '23-02-2024',
-                        start_time: '10:30 AM',
-                        floor: 'Ground_floor'
+                        date: '24-02-2024',
+                        start_time: '9:00 AM',
+                        floor: 'First_floor'
                     },
                     {
                         name: 'Datavista',
                         venue: 'I_PGDM_C',
-                        date: '23-02-2024',
-                        start_time: '10:30 AM',
+                        date: '24-02-2024',
+                        start_time: '9:00 AM',
                         floor: 'Ground_floor'
                     },
                     {
                         name: 'Pinnacle',
                         venue: 'I_MBA_A',
-                        date: '23-02-2024',
-                        start_time: '11:45 AM',
+                        date: '24-02-2024',
+                        start_time: '9:00 AM',
                         floor: 'First_floor'
                     },
                     {
                         name: 'The_Last_Knight',
                         venue: 'MDP',
-                        date: '23-02-2024',
-                        start_time: '10:30 AM',
-                        floor: 'First_floor'
+                        date: '24-02-2024',
+                        start_time: '9:00 AM',
+                        floor: 'Ground_floor'
                     },
                     {
                         name: 'Optimize',
                         venue: 'II_MBA_B',
-                        date: '23-02-2024',
-                        start_time: '01:00 PM',
+                        date: '24-02-2024',
+                        start_time: '09:00 AM',
                         floor: 'First_floor'
                     },
                 ];
                 // Populate management events table
                 var managementEventsTable = document.getElementById('management-events');
-                managementEventsDay1.forEach(function (event) {
+                managementEventsDay2.forEach(function (event) {
                     var row = managementEventsTable.insertRow();
                     row.insertCell(0).textContent = event.name;
                     row.insertCell(1).textContent = event.venue;
@@ -532,49 +532,35 @@
                         name: 'Euphoria',
                         venue: 'On_Stage',
                         date: '24-02-2024',
-                        start_time: '12:00 PM',
+                        start_time: '1:00 PM',
                         floor: 'Stage'
                     },
                     {
-                        name: 'Sizzle_and_shake_Prelims',
+                        name: 'Sizzle_and_shake',
                         venue: 'Auditorium',
                         date: '24-02-2024',
                         start_time: '9:00 AM',
                         floor: 'First_floor'
                     },
                     {
-                        name: 'Sizzle_and_shake_Finals',
-                        venue: 'On_Stage',
-                        date: '24-02-2024',
-                        start_time: '3:00 PM',
-                        floor: 'Stage'
-                    },
-                    {
                         name: 'Retronome',
                         venue: 'Auditorium',
                         date: '24-02-2024',
-                        start_time: '11:30 PM',
+                        start_time: '12:00 PM',
                         floor: 'First_floor'
                     },
                     {
                         name: 'Mozhi',
-                        venue: 'Exam_Hall',
+                        venue: 'On_Stage',
                         date: '24-02-2024',
-                        start_time: '9:30 AM',
-                        floor: 'First_floor'
+                        start_time: '11:00 AM',
+                        floor: 'Stage'
                     },
                     {
-                        name: 'Cinescope_Prelims',
+                        name: 'Cinescope',
                         venue: 'Exam_Hall',
                         date: '24-02-2024',
                         start_time: '1:00 PM',
-                        floor: 'First_floor'
-                    },
-                    {
-                        name: 'Cinescope_Finals',
-                        venue: 'I_MBA_B',
-                        date: '24-02-2024',
-                        start_time: '2:00 PM',
                         floor: 'First_floor'
                     },
                     {
@@ -586,10 +572,10 @@
                     },
                     {
                         name: 'Cinezer',
-                        venue: 'Seminar_hall',
+                        venue: 'Exam_Hall',
                         date: '24-02-2024',
                         start_time: '9:00 AM',
-                        floor: 'Ground_floor'
+                        floor: 'First_floor'
                     },
                     {
                         name: 'Rolling_Shutter',
@@ -604,7 +590,7 @@
                 // Populate cultural events table
                 console.log('entered')
                 var culturalEventsTable = document.getElementById('cultural-events');
-                culturalEventsDay1.forEach(function (event) {
+                culturalEventsDay2.forEach(function (event) {
                     var row = culturalEventsTable.insertRow();
                     row.insertCell(0).textContent = event.name;
                     row.insertCell(1).textContent = event.venue;
